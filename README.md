@@ -1,17 +1,17 @@
 # Fitting Poisson Distribution
 
-# Aim : 
+## Aim : 
 
 To fit poisson distribution for the given frequencey distribution
 
  ![image](https://user-images.githubusercontent.com/104613195/166092068-a5bf057f-fe65-41b8-ba2f-310fc6b56078.png)
 
 
-# Software required :  
+## Software required :  
 
 Python
 
-# Theory:
+## Theory:
 
 The Poisson distribution is the discrete probability distribution of the number of events occurring in a given time period, given the average number of times the event occurs over that time period.
 
@@ -24,13 +24,45 @@ The Poisson distribution is the discrete probability distribution of the number 
 3. The rate of occurrence is constant.
 4. The probability of an event occurring is proportional to the length of the time period. 
  
-# Procedure :
+## Procedure :
 
 ![image](https://user-images.githubusercontent.com/104613195/166251988-d0c53205-6080-4f7b-ae4c-398178586637.png)
 
-# Program
+## Program :
+```python
+# Developed by
+# Register Number: 212220230012
+# Name: Dineshkumar S
 
- 
+import numpy as np
+import math
+import scipy.stats
+X=[0,1,2,3,4,5,6]
+f=[153,169,72,31,12,6,2]
+n=6
+N=np.sum(f)
+mean=np.inner(X,f)/N
+P=list(); E=list(); xi=list()
+print("  X P(X=x) Obs.Fr  Ex.Fre   xi ")
+print("----------------------------------")
+for x in range(7):
+    P.append(math.exp(-mean)*mean*x/math.factorial(x))
+    E.append(P[x]*N)
+    xi.append((f[x]-E[x])**2/E[x])
+    print("%2.2f %2.2f  %4.2f   %3.2f  %3.2f"%(x,P[x],f[x],E[x],xi[x]))
+print("----------------------------------")
+cal_chi2=np.sum(xi)
+print("Calculated value of Chi square is %4.2f"%cal_chi2)
+tab_chi2=scipy.stats.chi2.ppf(1-.01, df=n)
+print("Table value of Chi square at 1  level is %4.2f"%tab_chi2)
+if cal_chi2<tab_chi2:
+    print("The given data can be fitted in Poissson distribution at 1% LOS")
+else:
+    print("The given data cannot be fitted in Poisson distribution at 1% LOS")
+```
 
-# Results and Output : 
- 
+## Output : 
+ ![Screenshot (184)](https://user-images.githubusercontent.com/75234807/166420819-5858a75a-b53e-4c46-928d-311df91b6757.png)
+
+## Result :
+Thus, fitting poisson distribution for the given frequencey distribution is verified.
